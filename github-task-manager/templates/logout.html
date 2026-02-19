@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Logout - Task Manager{% endblock %}
+
+{% block content %}
+    <style>
+        .logout-container {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h2 {
+            color: #32CDD5;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+
+        .logout-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #32CDD5;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .logout-button:hover {
+            background: #28a8ad;
+        }
+    </style>
+
+    <div class="logout-container">
+        <h2>Logged Out Successfully</h2>
+        <p>You have been logged out. See you soon!</p>
+        <a href="{{ url_for('login') }}" class="logout-button">Login Again</a>
+    </div>
+{% endblock %}
+

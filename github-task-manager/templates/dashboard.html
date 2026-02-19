@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Task Manager{% endblock %}
+
+{% block content %}
+    <style>
+        .dashboard-container {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            margin-bottom: 25px;
+            color: #32CDD5;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        table th {
+            background: rgba(50, 205, 213, 0.3);
+            padding: 15px;
+            text-align: left;
+            color: #32CDD5;
+            font-weight: bold;
+            border-bottom: 2px solid rgba(50, 205, 213, 0.5);
+        }
+
+        table td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        table tr:hover {
+            background: rgba(50, 205, 213, 0.1);
+        }
+
+        .task-title {
+            font-weight: bold;
+        }
+
+        .completed {
+            color: #4ade80;
+            font-weight: bold;
+        }
+
+        .pending {
+            color: #fbbf24;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-buttons button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+            font-size: 12px;
+        }
+
+        .complete-btn {
+            background: #32CDD5;
+            color: white;
+        }
+
+        .complete-btn:hover {
+            background: #28a8ad;
+        }
+
+        .delete-btn {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: #ff5252;
+        }
+
+        .no-tasks {
+            text-align: center;
+            padding: 40px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .no-tasks a {
+            color: #32CDD5;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .no-tasks a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <div class="dashboard-container">
+        <h2>My Tasks</h2>
+        
+        {% if tasks %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                        <tr>
+                            <td class="task-title">{{ task.title }}</td>
+                            <td>{{ task.description if task.description else 'No description' }}</td>
+                            <td>
+                                {% if task.completed %}
+                                    <span class="completed">✓ Completed</span>
+                                {% else %}
+                                    <span class="pending">Pending</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    <form method="POST" action="{{ url_for('complete_task', task_id=task.id) }}" style="display:inline;">
+                                        <button type="submit" class="complete-btn">
+                                            {% if task.completed %}Undo{% else %}Complete{% endif %}
+                                        </button>
+                                    </form>
+                                    <form method="POST" action="{{ url_for('delete_task', task_id=task.id) }}" style="display:inline;">
+                                        <button type="submit" class="delete-btn">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="no-tasks">
+                <p>No tasks yet. <a href="{{ url_for('addtask') }}">Create one now!</a></p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+

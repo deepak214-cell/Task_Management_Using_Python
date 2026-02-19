@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}Add Task - Task Manager{% endblock %}
+
+{% block content %}
+    <style>
+        .form-container {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            margin-bottom: 30px;
+            color: #32CDD5;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        input[type="text"],
+        textarea {
+            padding: 12px 15px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border-radius: 8px;
+            font-family: "Poppins", sans-serif;
+            transition: 0.3s;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #32CDD5;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        input[type="text"]::placeholder,
+        textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .submit-btn,
+        .cancel-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 15px;
+        }
+
+        .submit-btn {
+            background: #32CDD5;
+            color: white;
+        }
+
+        .submit-btn:hover {
+            background: #28a8ad;
+        }
+
+        .cancel-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cancel-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+    </style>
+
+    <div class="form-container">
+        <h2>Add New Task</h2>
+        
+        {% if error %}
+            <div style="color: #ff6b6b; margin-bottom: 20px; padding: 10px; background: rgba(255, 107, 107, 0.2); border-radius: 6px;">
+                {{ error }}
+            </div>
+        {% endif %}
+        
+        <form method="POST">
+            <div class="form-group">
+                <label for="title">Task Title</label>
+                <input type="text" id="title" name="title" placeholder="Enter task title" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" placeholder="Enter task description (optional)"></textarea>
+            </div>
+            
+            <div class="button-group">
+                <button type="submit" class="submit-btn">Add Task</button>
+                <a href="{{ url_for('dashboard') }}" class="cancel-btn" style="text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center;">Cancel</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
