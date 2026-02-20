@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', '123456789')
 
 # Database — use DATABASE_URL env var on Vercel (Neon Postgres), fallback to SQLite locally
-database_url = os.environ.get('DATABASE_URL', 'postgresql://neondb_owner:npg_HnK5rVqfQ2gm@ep-dawn-violet-akujidvu-pooler.c-3.us-west-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require')
+database_url = os.environ.get('DATABASE_URL', 'postgresql://neondb_owner:npg_PMvC2FQTKI5p@ep-dawn-violet-akujidvu-pooler.c-3.us-west-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require')
 if database_url.startswith('postgres://'):
     database_url = database_url.replace('postgres://', 'postgresql://', 1)
 
